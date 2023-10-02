@@ -1,0 +1,8 @@
+global:
+  tlsDisable: true
+server:
+  affinity: ""
+  ha:
+    enabled: true
+    raft: 
+      enabled: true

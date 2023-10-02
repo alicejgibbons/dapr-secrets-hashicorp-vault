@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-secrets
+  labels:
+    app: orders-secrets
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders-secrets
+  template:
+    metadata:
+      labels:
+        app: orders-secrets
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "orders-secrets"
+        dapr.io/app-port: "4000"
+        dapr.io/log-level: "debug"
+    spec:
+      containers:
+      - name: orders-secrets
+        image: $DOCKER_REGISTRY/orders-secrets:latest
+        env:
+        - name: APP_PORT
+          value: "4000"
+        ports:
+        - containerPort: 4000
+        imagePullPolicy: Always
